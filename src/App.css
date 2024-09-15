@@ -1,38 +1,246 @@
-.App {
-  text-align: center;
+:root {
+  --primary-bg-color: #b7e4c7; 
+  --secondary-bg-color: #95d5b2; 
+  --accent-color: #74c69d; 
+
+  --text-color: #1b4332; 
+  --button-bg-color: #40916c;
+  --button-text-color: #ffffff; 
+  --select-bg-color: #74c69d;
+  --select-text-color: #1b4332;
+
+  --card-front-bg-color: #fff;
+  --card-back-bg-color: #40916c;
+  --card-border-color: #2d6a4f;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+[data-theme="dark"] {
+  --primary-bg-color: #40916c;
+  --secondary-bg-color: #2d6a4f;
+  --accent-color: #1b4332;
+
+  --text-color: #b7e4c7;
+  --button-bg-color: #3c553d; 
+  --button-text-color: #b7e4c7;
+  --select-bg-color: #2d6a4f;
+  --select-text-color: #b7e4c7;
+
+  --card-front-bg-color: #2d6a4f; 
+  --card-back-bg-color: #1b4332; 
+  --card-border-color: #74c69d;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  background-color: var(--primary-bg-color);
+  color: var(--text-color);
   min-height: 100vh;
   display: flex;
+  justify-content: center;
+}
+img {
+  object-fit: contain;
+  width: 80%;
+  height: 80%;
+}
+.container {
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.wrap {
+  display: flex;
+  max-width: 100%;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--secondary-bg-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+  margin: 10px auto;
+}
+
+.number-of-strokes,
+.game-time {
+  color: var(--text-color);
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.board-size-selector,
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.board-size-selector:hover,
+button:hover {
+  background-color: var(--accent-color);
+}
+
+.board-size-selector {
+  background-color: var(--select-bg-color);
+  color: var(--select-text-color);
+}
+
+button {
+  font-weight: bold;
+}
+
+.board-size-selector:focus,
+button:focus {
+  box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+.cards {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.card {
+  height: 150px;
+  width: 150px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.card.flipped .inner {
+  transform: rotateY(180deg);
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: 0.6s cubic-bezier(0.38, 0.02, 0.09, 1.66) all;
+}
+
+.card .front,
+.card .back {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+.card .front {
+  background: var(--card-front-bg-color);
+  border: 2px solid var(--card-border-color);
+  transform: rotateY(180deg);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.card .back {
+  background: var(--card-back-bg-color);
+  font-size: 100px;
+  transition: 0.3s ease all;
+}
+
+button,
+.button-restart,
+.board-size-selector {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  transition: 0.3s ease all;
+}
+.card .back:hover {
+  transform: scale(1.02);
+}
+.card .back:hover,
+.button-restart:hover {
+  background: var(--accent-color);
+}
+
+.button-restart {
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.3s ease all;
+}
+
+.number-of-strokes {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.board-size-selector {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    max-width: 95%;
   }
-  to {
-    transform: rotate(360deg);
+
+  .number-of-strokes,
+  .game-time {
+    font-size: 14px; 
+  }
+
+  .board-size-selector,
+  button {
+    padding: 8px 16px; 
+    font-size: 14px;
+  }
+
+  .cards {
+    gap: 5px; 
+  }
+
+  .card {
+    height: 100px;
+    width: 100px;
+  }
+}
+@media (max-width: 534px) {
+  .card {
+    height: 80px;
+    width: 80px;
+  }
+}
+@media (max-width: 434px) {
+  .card {
+    height: 70px;
+    width: 70px;
+  }
+}
+@media (max-width: 373px) {
+  .card {
+    height: 50px;
+    width: 50px;
+  }
+}
+@media (max-width: 318px) {
+  .container {
+    max-width: 270px;
+  }
+  .wrap {
+    max-width: 270px;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .card {
+    height: 50px;
+    width: 50px;
   }
 }
